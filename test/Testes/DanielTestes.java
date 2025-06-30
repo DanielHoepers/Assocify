@@ -21,8 +21,10 @@ public class DanielTestes {
         DaoAssociado daoAssociado = mock(DaoAssociado.class);
         DaoPagamentoMensalidade daoPagamento = mock(DaoPagamentoMensalidade.class);
         NotificacaoService notificacaoService = mock(NotificacaoService.class);
-
-        AssociadoService service = new AssociadoService(daoAssociado, daoPagamento, notificacaoService);
+        AutenticacaoService autenticacaoService = mock(AutenticacaoService.class);
+        
+    
+        AssociadoService service = new AssociadoService(daoAssociado, daoPagamento, notificacaoService, autenticacaoService);
         Associado associado = service.criarObjeto("daniel hoepers", "12345678900", "danielrch.hoepers@gmail.com", "47999998888", "rufolfo mass, 11", Categoria.Ativo);
 
         // Act
@@ -35,7 +37,7 @@ public class DanielTestes {
     @Test
     public void testVerificarInadimplencia() throws Exception {
         // Arrange
-        AssociadoService associadoService = new AssociadoService(null, null, null);
+        AssociadoService associadoService = new AssociadoService(null, null, null, null);
         PagamentoMensalidadeService pagamentoService = new PagamentoMensalidadeService(null);
 
         Associado associado = associadoService.criarObjeto("daniel hoepers", "12345678900", "danielrch.hoepers@gmail.com", "47999998888", "rufolfo mass, 11", Categoria.Ativo);
@@ -61,9 +63,10 @@ public class DanielTestes {
         // Arrange
         DaoAssociado daoAssociado = mock(DaoAssociado.class);
         DaoPagamentoMensalidade daoPagamento = mock(DaoPagamentoMensalidade.class);
-        NotificacaoService notificacaoMock = mock(NotificacaoService.class);
-
-        AssociadoService service = new AssociadoService(daoAssociado, daoPagamento, notificacaoMock);
+        NotificacaoService notificacaoService = mock(NotificacaoService.class);
+        AutenticacaoService autenticacaoService = mock(AutenticacaoService.class);
+        
+        AssociadoService service = new AssociadoService(daoAssociado, daoPagamento, notificacaoService, autenticacaoService);
         PagamentoMensalidadeService pagamentoService = new PagamentoMensalidadeService(daoPagamento);
 
         Associado associado = service.criarObjeto("daniel hoepers", "12345678900", "danielrch.hoepers@gmail.com", "47999998888", "rufolfo mass, 11", Categoria.Honorário);
@@ -106,8 +109,9 @@ public class DanielTestes {
         NotificacaoService notificacaoService = mock(NotificacaoService.class);
         DaoTorneio daoTorneio = mock(DaoTorneio.class);
         DaoParticipacaoTorneiro daoParticipacaoTorneio = mock(DaoParticipacaoTorneiro.class);
+        AutenticacaoService autenticacaoService = mock(AutenticacaoService.class);
 
-        AssociadoService associadoService = new AssociadoService(daoAssociado, daoPagamento, notificacaoService);
+        AssociadoService associadoService = new AssociadoService(daoAssociado, daoPagamento, notificacaoService, autenticacaoService);
         Associado associado = associadoService.criarObjeto("joão pereira", "98765432100", "joao.pereira@email.com", "47988887777", "avenida central, 50", Categoria.Ativo);
         associado.setInadimplente(true);
 
@@ -129,11 +133,13 @@ public class DanielTestes {
     public void testNotificacaoBoasVindas() throws Exception {
         // Arrange
         DaoNotificacao daoMock = mock(DaoNotificacao.class);
-        NotificacaoService notificacaoService = new NotificacaoService(daoMock);
-
+        EmailService emailService = new EmailService();
+        NotificacaoService notificacaoService = new NotificacaoService(daoMock, emailService);
+        AutenticacaoService autenticacaoService = mock(AutenticacaoService.class);
+        
         DaoAssociado daoA = mock(DaoAssociado.class);
         DaoPagamentoMensalidade daoP = mock(DaoPagamentoMensalidade.class);
-        AssociadoService associadoService = new AssociadoService(daoA, daoP, notificacaoService);
+        AssociadoService associadoService = new AssociadoService(daoA, daoP, notificacaoService, autenticacaoService);
 
         Associado associado = associadoService.criarObjeto("daniel hoepers", "12345678900", "danielrch.hoepers@gmail.com", "47999998888", "rufolfo mass, 11", Categoria.Ativo);
         associadoService.salvarObjeto(associado);
@@ -233,12 +239,14 @@ public class DanielTestes {
     public void testNotificacaoImportanteNaoLida() throws Exception {
         // Arrange
         DaoNotificacao daoMock = mock(DaoNotificacao.class);
-        NotificacaoService notificacaoService = new NotificacaoService(daoMock);
+        EmailService emailService = new EmailService();
+        NotificacaoService notificacaoService = new NotificacaoService(daoMock,emailService);
+        AutenticacaoService autenticacaoService = mock(AutenticacaoService.class);
 
         DaoAssociado daoA = mock(DaoAssociado.class);
         DaoPagamentoMensalidade daoP = mock(DaoPagamentoMensalidade.class);
 
-        AssociadoService associadoService = new AssociadoService(daoA, daoP, notificacaoService);
+        AssociadoService associadoService = new AssociadoService(daoA, daoP, notificacaoService, autenticacaoService);
         Associado associado = associadoService.criarObjeto("paula mendes", "77777777777", "paula.mendes@email.com", "47999998877", "rua das rosas, 45", Categoria.Ativo);
 
         Notificacao notificacao = notificacaoService.criarNotificacao(associado, "mensagem urgente", false, true);
@@ -282,8 +290,9 @@ public class DanielTestes {
         NotificacaoService notificacaoService = mock(NotificacaoService.class);
         DaoTorneio daoTorneio = mock(DaoTorneio.class);
         DaoParticipacaoTorneiro daoParticipacao = mock(DaoParticipacaoTorneiro.class);
+        AutenticacaoService autenticacaoService = mock(AutenticacaoService.class);
 
-        AssociadoService associadoService = new AssociadoService(daoAssociado, daoPagamento, notificacaoService);
+        AssociadoService associadoService = new AssociadoService(daoAssociado, daoPagamento, notificacaoService, autenticacaoService);
         TorneioService torneioService = new TorneioService(daoTorneio, daoParticipacao);
 
         Associado associado = associadoService.criarObjeto("daniel hoepers", "12312312300", "danielrch.hoepers@x.com", "47999998877", "rufolfo mass, 11", Categoria.Ativo);

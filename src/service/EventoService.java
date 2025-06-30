@@ -1,6 +1,7 @@
 package service;
 
 import classes.Evento;
+import daos.DaoAssociado;
 import daos.DaoEvento;
 
 public class EventoService {
@@ -17,6 +18,7 @@ public class EventoService {
 
     public boolean salvarObjeto(Evento evento) {
         return dao.Inserir(evento);
+    
     }
 
     public boolean editarObjeto(Evento evento) {

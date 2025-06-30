@@ -1,83 +1,84 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package daos;
 
+import classes.Associado;
 import classes.Usuario;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-/**
- *
- * @author danie
- */
-public class DaoUsuario extends Dao{
-           public boolean Inserir(Usuario x) {
+public class DaoUsuario extends Dao {
+
+    public boolean Inserir(Usuario usuario) {
         try {
             em.getTransaction().begin();
-            em.persist(x);
+            em.persist(usuario);
             em.getTransaction().commit();
             return true;
-        } catch (PersistenceException y) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            return true;
+            System.out.println("Erro ao inserir usuário: " + e.getMessage());
+            return false;
         }
-
     }
 
-    public boolean Editar(Usuario x) {
+    public boolean Editar(Usuario usuario) {
         try {
             em.getTransaction().begin();
-            em.merge(x);
+            em.merge(usuario);
             em.getTransaction().commit();
             return true;
-        } catch (PersistenceException y) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            return true;
+            System.out.println("Erro ao editar usuário: " + e.getMessage());
+            return false;
         }
-
     }
 
-    public boolean Remover(Usuario x) {
+    public boolean Remover(Usuario usuario) {
         try {
             em.getTransaction().begin();
-            em.remove(x);
+            em.remove(em.contains(usuario) ? usuario : em.merge(usuario));
             em.getTransaction().commit();
             return true;
-        } catch (PersistenceException y) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            return true;
+            System.out.println("Erro ao remover usuário: " + e.getMessage());
+            return false;
         }
-
     }
-    
-    public Usuario selecionar(int codigo){
-        Query consulta = em.createQuery("select x from Usuario x where x.id = :y");
-        consulta.setParameter("y", codigo);
-        return (Usuario) consulta.getSingleResult();
-}
-    
+
+    public Usuario selecionar(int id) {
+        try {
+            Query consulta = em.createQuery("SELECT u FROM Usuario u WHERE u.id = :id");
+            consulta.setParameter("id", id);
+            return (Usuario) consulta.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Usuário não encontrado pelo ID: " + id);
+            return null;
+        }
+    }
+
     public Usuario buscarPorLogin(String login) {
-    try {
-        return em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class)
-                 .setParameter("login", login)
-                 .getSingleResult();
-    } catch (Exception e) {
-        return null;
+        try {
+            return em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class)
+                     .setParameter("login", login)
+                     .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
-}
-public List<Usuario> listar() {
+
+    public List<Usuario> listar() {
         return em.createQuery("FROM Usuario", Usuario.class).getResultList();
-}
-
-
+    }
+    
+   
 
 }

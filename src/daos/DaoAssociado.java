@@ -6,6 +6,7 @@ package daos;
 
 import classes.Associado;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -69,5 +70,25 @@ public class DaoAssociado extends Dao{
     public List<Associado> listar() {
     return em.createQuery("FROM Associado", Associado.class).getResultList();
 }
+    
+     public Associado buscarPorCpf(String cpf) {
+    try {
+        return em.createQuery("SELECT a FROM Associado a WHERE a.cpf = :cpf", Associado.class)
+                 .setParameter("cpf", cpf)
+                 .getSingleResult();
+    } catch (NoResultException e) {
+        return null;
+    }
+}
+     public Associado buscarPorEmail(String email) {
+    try {
+        return em.createQuery("SELECT a FROM Associado a WHERE a.email = :email", Associado.class)
+                 .setParameter("email", email)
+                 .getSingleResult();
+    } catch (NoResultException e) {
+        return null;
+    }
+}
+
 
 }

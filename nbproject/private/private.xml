@@ -4,18 +4,31 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/daos/DaoParticipacaoTorneiro.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/ParticipacaoTorneioService.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/AssociadoService.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/CarteirinhaService.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/AutenticacaoService.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/test/Testes/DanielTestes.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/daos/DaoNotificacao.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/telas/CadastroPagamentoMensalidade.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/TorneioService.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/FinanceiroService.java</file>
-            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/classes/ParticipacaoTorneiro.java</file>
-            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/test/Testes/AssocifyTestSuite.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/EventoService.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/EmailService.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/NotificacaoService.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/PagamentoMensalidadeService.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/classes/PagamentoMensalidade.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/PassaroService.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/classes/Notificacao.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/daos/DaoTorneio.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/daos/DaoUsuario.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/telas/TelaPrincipal.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/configs/ConfigUtil.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/classes/ParticipacaoTorneiro.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/classes/Associado.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/service/FeedbackService.java</file>
             <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/daos/DaoPagamentoMensalidade.java</file>
-            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/daos/DaoTorneio.java</file>
+            <file>file:/C:/Users/danie/OneDrive/Documentos/NetBeansProjects/main/src/telas/CadastroAssociado.java</file>
         </group>
     </open-files>
 </project-private>

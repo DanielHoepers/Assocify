@@ -19,9 +19,6 @@ public class AutenticacaoService {
         return new Usuario(login, senha, perfil, ativo);
     }
 
-    public boolean salvarUsuario(Usuario usuario) {
-        return daoUsuario.Inserir(usuario);
-    }
 
     public boolean salvarObjeto(Usuario usuario) {
         return daoUsuario.Inserir(usuario);

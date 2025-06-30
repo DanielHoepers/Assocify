@@ -54,6 +54,6 @@ public class FinanceiroService {
     }
 
     public void gerarRecibo(PagamentoMensalidade pagamento) {
-        System.out.println("Recibo gerado para pagamento no valor de R$" + pagamento.getValor());
+        /*System.out.println("Recibo gerado para pagamento no valor de R$" + pagamento.getValor());*/
     }
 }
