@@ -68,7 +68,7 @@ public class DaoAssociado extends Dao{
 }
     
     public List<Associado> listar() {
-    return em.createQuery("FROM Associado", Associado.class).getResultList();
+    return em.createQuery("FROM Associado a", Associado.class).getResultList();
 }
     
      public Associado buscarPorCpf(String cpf) {

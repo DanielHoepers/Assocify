@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-public class CadastroPagamentoMensalidade extends JFrame {
+public class CadastroPagamentoMensalidade extends JPanel {
 
     private JComboBox<Associado> cbAssociado;
     private JTextField tfValor;
@@ -26,68 +26,82 @@ public class CadastroPagamentoMensalidade extends JFrame {
     public CadastroPagamentoMensalidade(PagamentoMensalidadeService pagamentoService, AssociadoService associadoService) {
         this.pagamentoService = pagamentoService;
         this.associadoService = associadoService;
+
         initComponents();
         carregarAssociados();
     }
 
     private void initComponents() {
-        setTitle("Cadastro de Pagamento Mensalidade");
-        setSize(450, 280);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
+        setBackground(Color.decode("#F4F6F8"));
+
+        JPanel painelForm = new JPanel(new GridBagLayout());
+        painelForm.setBackground(Color.decode("#F4F6F8"));
+        painelForm.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 100));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.insets = new Insets(8, 10, 8, 10);
+        gbc.anchor = GridBagConstraints.WEST;
 
-        JLabel lblAssociado = new JLabel("Associado:");
         cbAssociado = new JComboBox<>();
-
-        JLabel lblValor = new JLabel("Valor:");
-        tfValor = new JTextField();
-
-        JLabel lblJuros = new JLabel("Juros:");
-        tfJuros = new JTextField();
-
-        JLabel lblStatus = new JLabel("Status:");
+        cbAssociado.setPreferredSize(new Dimension(240, 25));
+        tfValor = new JTextField(20);
+        tfJuros = new JTextField(20);
         cbStatus = new JComboBox<>(StatusPagamento.values());
+
+        gbc.gridx = 0; gbc.gridy = 0;
+        painelForm.add(new JLabel("Associado:"), gbc);
+        gbc.gridx = 1;
+        painelForm.add(cbAssociado, gbc);
+
+        gbc.gridx = 0; gbc.gridy++;
+        painelForm.add(new JLabel("Valor:"), gbc);
+        gbc.gridx = 1;
+        painelForm.add(tfValor, gbc);
+
+        gbc.gridx = 0; gbc.gridy++;
+        painelForm.add(new JLabel("Juros:"), gbc);
+        gbc.gridx = 1;
+        painelForm.add(tfJuros, gbc);
+
+        gbc.gridx = 0; gbc.gridy++;
+        painelForm.add(new JLabel("Status:"), gbc);
+        gbc.gridx = 1;
+        painelForm.add(cbStatus, gbc);
 
         btnCadastrar = new JButton("Cadastrar");
         btnCancelar = new JButton("Cancelar");
 
-        gbc.gridx = 0; gbc.gridy = 0;
-        add(lblAssociado, gbc);
-        gbc.gridx = 1;
-        add(cbAssociado, gbc);
+        btnCadastrar.setBackground(new Color(33, 150, 243));
+        btnCadastrar.setForeground(Color.WHITE);
+        btnCancelar.setBackground(Color.LIGHT_GRAY);
+        btnCancelar.setForeground(Color.BLACK);
 
-        gbc.gridx = 0; gbc.gridy = 1;
-        add(lblValor, gbc);
-        gbc.gridx = 1;
-        add(tfValor, gbc);
+        JPanel botoes = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        botoes.setBackground(Color.decode("#F4F6F8"));
+        botoes.add(btnCadastrar);
+        botoes.add(btnCancelar);
 
-        gbc.gridx = 0; gbc.gridy = 2;
-        add(lblJuros, gbc);
-        gbc.gridx = 1;
-        add(tfJuros, gbc);
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.gridwidth = 2;
+        painelForm.add(botoes, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 3;
-        add(lblStatus, gbc);
-        gbc.gridx = 1;
-        add(cbStatus, gbc);
+        JPanel alinhamento = new JPanel(new BorderLayout());
+        alinhamento.setBackground(Color.decode("#F4F6F8"));
+        alinhamento.add(painelForm, BorderLayout.WEST);
+        add(alinhamento, BorderLayout.NORTH);
 
-        gbc.gridx = 0; gbc.gridy = 4;
-        add(btnCadastrar, gbc);
-        gbc.gridx = 1;
-        add(btnCancelar, gbc);
+
+        add(alinhamento, BorderLayout.NORTH);
 
         btnCadastrar.addActionListener(e -> cadastrarPagamento());
-        btnCancelar.addActionListener(e -> dispose());
+        btnCancelar.addActionListener(e -> fecharAba());
     }
 
     private void carregarAssociados() {
         try {
-            List<Associado> associados = associadoService.listarAssociados(); 
+            List<Associado> associados = associadoService.listarAssociados();
             DefaultComboBoxModel<Associado> model = new DefaultComboBoxModel<>();
             for (Associado a : associados) {
                 model.addElement(a);
@@ -117,12 +131,26 @@ public class CadastroPagamentoMensalidade extends JFrame {
 
             if (sucesso) {
                 JOptionPane.showMessageDialog(this, "Pagamento cadastrado com sucesso!");
-                dispose();
+                fecharAba();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao cadastrar pagamento.");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
+        }
+    }
+
+    private void fecharAba() {
+        Container container = this.getParent();
+        while (container != null && !(container instanceof JTabbedPane)) {
+            container = container.getParent();
+        }
+        if (container != null) {
+            JTabbedPane tabs = (JTabbedPane) container;
+            int index = tabs.indexOfComponent(this);
+            if (index != -1) {
+                tabs.remove(index);
+            }
         }
     }
 }

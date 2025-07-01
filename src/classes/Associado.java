@@ -149,4 +149,10 @@ public class Associado implements Serializable {
     public void setMensalidades(List<PagamentoMensalidade> mensalidades) {
         this.mensalidades = mensalidades;
     }
+    
+    @Override
+    public String toString() {
+        return nomeCompleto + " (" + cpf + ")";
+    }
+
 }

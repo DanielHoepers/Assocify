@@ -44,7 +44,7 @@ public class AssociadoService {
     }
 
     public boolean salvarObjeto(Associado associado) {
-    // Validações de unicidade
+   
     if (daoAssociado.buscarPorCpf(associado.getCpf()) != null) {
         System.out.println("Erro: já existe um associado com este CPF.");
         return false;
